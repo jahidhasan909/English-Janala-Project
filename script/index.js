@@ -1,15 +1,43 @@
 
-const lessonLoad = () => {
-    const url = 'https://openapi.programming-hero.com/api/levels/all';
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displayLesson(data.data))
+
+
+
+document.getElementById('log-input').addEventListener('click', function () {
+    const userName = document.getElementById('userName-input');
+    const checkUserNameValue = userName.value;
+
+    const password = document.getElementById('password-input');
+    const checkPasswordValue = password.value;
+
+    if (checkUserNameValue == 'jahidhasan999' && checkPasswordValue == 'jahidhasan') {
+        alert('success');
+
+
+
+
+        
+    } else {
+        alert('wrong');
+        return;
+    }
+
+
+})
+
+
+
+const synonymsFun = (arr) => {
+    const elementsMake = arr.map((el) => `<span class="btn">${el}</span>`)
+    return elementsMake.join(' ');
 }
 
-const removeActive = () => {
-    const lessonBtn = document.querySelectorAll('.lesson-btn');
-    lessonBtn.forEach(btn => btn.classList.remove('active'));
+
+function pronounceWord(word) {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-EN"; // English
+    window.speechSynthesis.speak(utterance);
 }
+
 
 const loadWord = (id) => {
     manegeLoading(true);
@@ -24,7 +52,6 @@ const loadWord = (id) => {
         })
 }
 
-
 const loadWordDetail = async (id) => {
     const url = `https://openapi.programming-hero.com/api/word/${id}`;
     const word = await fetch(url);
@@ -32,11 +59,18 @@ const loadWordDetail = async (id) => {
     wordDetailsDisplay(details.data);
 }
 
-
-const synonymsFun = (arr) => {
-    const elementsMake = arr.map((el) => `<span class="btn">${el}</span>`)
-    return elementsMake.join(' ');
+const lessonLoad = () => {
+    const url = 'https://openapi.programming-hero.com/api/levels/all';
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayLesson(data.data))
 }
+
+const removeActive = () => {
+    const lessonBtn = document.querySelectorAll('.lesson-btn');
+    lessonBtn.forEach(btn => btn.classList.remove('active'));
+}
+
 
 
 const wordDetailsDisplay = (details) => {
@@ -143,14 +177,6 @@ document.getElementById('btn-search').addEventListener('click', function () {
 
 
 })
-
-
-
-function pronounceWord(word) {
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-EN"; // English
-    window.speechSynthesis.speak(utterance);
-}
 
 
 lessonLoad();
